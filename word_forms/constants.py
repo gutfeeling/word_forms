@@ -36,8 +36,3 @@ for ss in wn.all_synsets(pos = "r"):
         matches = get_close_matches(word, pertainyms)
         if len(matches) > 0:
             ADJECTIVE_TO_ADVERB[matches[0]] = word
-
-PUNCTUATION_LIST = [".", "!", "?", ",", ";", ":", "-", "[", "]", "{", "}", "(",
-                    ")", "'", "\"", "...",]
-PUNCTUATION_LIST += ["|"]
-PUNCTUATION_LIST += ["``", "''"]
