@@ -3,7 +3,7 @@
 ## Why?
 In Natural Language Processing and Search, one often needs to treat words like "run" and "ran", "love" and "lovable" 
 or "politician" and "politics" as the same word. This is usually done by algorithmically reducing each word into a 
-base word and then comparing the base words. This process is called Stemming. For example, the 
+base word and then comparing the base words. The process is called Stemming. For example, the 
 [Porter Stemmer](http://www.nltk.org/_modules/nltk/stem/porter.html) reduces both "love" and "lovely" into the base 
 word "love".
 
