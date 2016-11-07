@@ -38,6 +38,7 @@ pip install -e word_forms
 ```
 OR
 ```
+cd word_forms
 python setup.py install
 ```
 ## Examples
