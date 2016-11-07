@@ -3,20 +3,16 @@
 ## Why?
 In Natural Language Processing and Search, one often needs to treat words like "run" and "ran", "love" and "lovable" 
 or "politician" and "politics" as the same word. This is usually done by algorithmically reducing each word into a 
-base word and then comparing the base words. The process is called Stemming. For example, the 
-[Porter Stemmer](http://www.nltk.org/_modules/nltk/stem/porter.html) reduces both "love" and "lovely" into the base 
-word "love".
+base word and then comparing the base words. The process is called [Stemming](https://en.wikipedia.org/wiki/Stemming). 
+For example, the [Porter Stemmer](http://www.nltk.org/_modules/nltk/stem/porter.html) reduces both "love" and "lovely" 
+into the base word "love".
 
 Stemmers have several shortcomings. Firstly, the base word produced by the Stemmer is not always a valid English word. 
 For example, the Porter Stemmer reduces the word "operation" to "oper". Secondly, the Stemmers have a high false negative rate. 
 For example, "run" is reduced to "run" and "ran" is reduced to "ran". This happens because the Stemmers use a set of 
 rational rules for finding the base words, and as we all know, the English language does not always behave very rationally. 
 
-Lemmatizers are more accurate than Stemmers because they produce a base form that is present in the dictionary
-(also called the Lemma). So the reduced word is always a valid English word. However, Lemmatizers also have false 
-negatives because they are not very good at connecting words across different parts of speeches. The 
-[WordNet Lemmatizer](http://www.nltk.org/_modules/nltk/stem/wordnet.html) included with NLTK fails at almost all 
-such examples. "operations" is reduced to "operation"  and "operate" is reduced to "operate".
+[Lemmatizers](https://en.wikipedia.org/wiki/Lemmatisation) are more accurate than Stemmers because they produce a base form that is present in the dictionary (also called the Lemma). So the reduced word is always a valid English word. However, Lemmatizers also have false negatives because they are not very good at connecting words across different parts of speeches. The [WordNet Lemmatizer](http://www.nltk.org/_modules/nltk/stem/wordnet.html) included with NLTK fails at almost all such examples. "operations" is reduced to "operation"  and "operate" is reduced to "operate".
 
 #### Word Forms tries to solve this problem by finding all possible forms of a given English word. It can perform verb conjugations, connect noun forms to verb forms, adjective forms, adverb forms, plularize singular forms etc. 
 
