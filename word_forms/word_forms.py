@@ -1,13 +1,13 @@
 try:
     from nltk.corpus import wordnet as wn
+    raise_lookuperror_if_wordnet_data_absent = wn.synsets("python")
 except LookupError:
     import nltk
     nltk.download("wordnet")
-    from nltk.corpus import wordnet as wn
 import inflect
 
 from .constants import (ALL_WORDNET_WORDS, CONJUGATED_VERB_LIST,
-                                  ADJECTIVE_TO_ADVERB)
+                        ADJECTIVE_TO_ADVERB)
 
 def belongs(lemma, lemma_list):
     """

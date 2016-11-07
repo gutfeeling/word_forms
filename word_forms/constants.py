@@ -2,10 +2,10 @@ from difflib import get_close_matches
 
 try:
     from nltk.corpus import wordnet as wn
+    raise_lookuperror_if_wordnet_data_absent = wn.synsets("python")
 except LookupError:
     import nltk
     nltk.download("wordnet")
-    from nltk.corpus import wordnet as wn
 from unipath import Path
 import inflect
 
