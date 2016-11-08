@@ -1,6 +1,9 @@
 <img src="https://github.com/gutfeeling/word_forms/blob/master/logo.png" alt="word forms logo" width="500">
 ## Accurately generate all possible forms of an English word
 
+Word forms can accurately generate all possible forms of an English word. It can conjugate verbs. It can connect different
+parts of speeches e.g noun to adjective, adjective to adverb, noun to verb etc. It can pluralize singular nouns. It does this all in one function. Enjoy!
+
 ## Examples
 
 Some very relevant examples :-P
@@ -8,12 +11,12 @@ Some very relevant examples :-P
 ```python
 >>> from word_forms.word_forms import get_word_forms
 >>> get_word_forms("president")
->>> {'n': {'president', 'Presidents', 'President', 'presidentship', 'presidencies', 'presidency', 'presidentships',         'presidents'}, 
+>>> {'n': {'president', 'Presidents', 'President', 'presidentship', 'presidencies', 'presidency', 'presidentships, 'presidents'}, 
      'r': {'presidentially'}, 
      'a': {'presidential'}, 
      'v': {'presiding', 'presides', 'preside', 'presided'}}
 >>> get_word_forms("elect")
->>> {'n': {'elector', 'elects', 'eligibilities', 'electors', 'elective', 'electorates', 'elect', 'electives', 'elections', 'electorate', 'eligibility', 'election'}, 
+>>> {'n': {'elector', 'elects', 'electors', 'elective', 'electorates', 'elect', 'electives', 'elections', 'electorate', 'eligibility', 'election', 'eligibilities'}, 
      'r': set(), 
      'a': {'elect', 'electoral', 'elective', 'eligible'}, 
      'v': {'elect', 'elects', 'electing', 'elected'}}
@@ -27,7 +30,6 @@ Some very relevant examples :-P
      'r': set(), 
      'a': set(), 
      'v': {'trumped', 'trump', 'trumps', 'trumping'}}
-
 ```
 As you can see, the output is a dictionary with four keys. "r" stands for adverb, "a" for adjective, "n" for noun
 and "v" for verb. Don't ask me why "r" stands for adverb. This is what WordNet uses, so this is why I use it too :-)
