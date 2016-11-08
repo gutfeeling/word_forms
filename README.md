@@ -6,7 +6,7 @@ parts of speeches e.g noun to adjective, adjective to adverb, noun to verb etc. 
 
 ## Examples
 
-Some very relevant examples :-P
+Some very timely examples :-P
 
 ```python
 >>> from word_forms.word_forms import get_word_forms
