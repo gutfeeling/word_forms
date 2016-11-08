@@ -54,7 +54,7 @@ rational rules for finding the base words, and as we all know, the English langu
 
 Lemmatizers are more accurate than Stemmers because they produce a base form that is present in the dictionary (also called the Lemma). So the reduced word is always a valid English word. However, Lemmatizers also have false negatives because they are not very good at connecting words across different parts of speeches. The [WordNet Lemmatizer](http://textanalysisonline.com/nltk-wordnet-lemmatizer) included with NLTK fails at almost all such examples. "operations" is reduced to "operation"  and "operate" is reduced to "operate".
 
-#### Word Forms tries to solve this problem by finding all possible forms of a given English word. It can perform verb conjugations, connect noun forms to verb forms, adjective forms, adverb forms, plularize singular forms etc. 
+Word Forms tries to solve this problem by finding all possible forms of a given English word. It can perform verb conjugations, connect noun forms to verb forms, adjective forms, adverb forms, plularize singular forms etc. 
 
 ## Comaptibility
 
