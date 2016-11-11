@@ -11,7 +11,7 @@ Some very timely examples :-P
 ```python
 >>> from word_forms.word_forms import get_word_forms
 >>> get_word_forms("president")
->>> {'n': {'president', 'Presidents', 'President', 'presidentship', 'presidencies', 'presidency', 'presidentships, 'presidents'}, 
+>>> {'n': {'president', 'Presidents', 'President', 'presidentship', 'presidencies', 'presidency', 'presidentships', 'presidents'}, 
      'r': {'presidentially'}, 
      'a': {'presidential'}, 
      'v': {'presiding', 'presides', 'preside', 'presided'}}
