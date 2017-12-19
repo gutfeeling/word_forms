@@ -76,6 +76,11 @@ cd word_forms
 python setup.py install
 ```
 
+### Alternatively, add this to your pip requirements file:
+```
+git+git://github.com/gutfeeling/word_forms.git#egg=word_forms
+```
+
 ## Acknowledgement
 
 1. [The XTAG project](http://www.cis.upenn.edu/~xtag/) for information on [verb conjugations](word_forms/en-verbs.txt).
