@@ -39,37 +39,23 @@ def get_related_lemmas(word):
         Lemma('comeliness.n.01.loveliness')]
     returns [] if Wordnet doesn't recognize the word
     """
+    return get_related_lemmas_rec(word, [])
 
+def get_related_lemmas_rec(word, known_lemmas):
+    # Turn string word into list of Lemma objects
     all_lemmas_for_this_word = [lemma for ss in wn.synsets(word)
                                 for lemma in ss.lemmas()
                                 if lemma.name() == word]
-    all_related_lemmas = [lemma for lemma in all_lemmas_for_this_word]
-    new_lemmas = []
+    # Add new lemmas to known lemmas
+    known_lemmas += [lemma for lemma in all_lemmas_for_this_word
+                     if not belongs(lemma, known_lemmas)]
+    # Loop over new lemmas, and recurse using new related lemmas
     for lemma in all_lemmas_for_this_word:
-        for new_lemma in (lemma.derivationally_related_forms() +
-                          lemma.pertainyms()):
-            if (not belongs(new_lemma, all_related_lemmas) and
-            not belongs(new_lemma, new_lemmas)):
-                new_lemmas.append(new_lemma)
-    while len(new_lemmas) > 0:
-        all_lemmas_for_new_words = []
-        for new_lemma in new_lemmas:
-            word = new_lemma.name()
-            all_lemmas_for_this_word = [lemma for ss in wn.synsets(word)
-                                        for lemma in ss.lemmas()
-                                        if lemma.name() == word]
-            for lemma in all_lemmas_for_this_word:
-                if not belongs(lemma, all_lemmas_for_new_words):
-                    all_lemmas_for_new_words.append(lemma)
-        all_related_lemmas += all_lemmas_for_new_words
-        new_lemmas = []
-        for lemma in all_lemmas_for_new_words:
-            for new_lemma in (lemma.derivationally_related_forms() +
-                              lemma.pertainyms()):
-                if (not belongs(new_lemma, all_related_lemmas) and
-                not belongs(new_lemma, new_lemmas)):
-                    new_lemmas.append(new_lemma)
-    return all_related_lemmas
+        for new_lemma in (lemma.derivationally_related_forms() + lemma.pertainyms()):
+            if not belongs(new_lemma, known_lemmas):
+                get_related_lemmas_rec(new_lemma.name(), known_lemmas)
+    # Return the known lemmas
+    return known_lemmas
 
 def singularize(noun):
     """
