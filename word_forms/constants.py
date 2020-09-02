@@ -6,13 +6,14 @@ try:
 except LookupError:
     import nltk
     nltk.download("wordnet")
+try:
+    from nltk.corpus import words
+except LookupError:
+    nltk.download("words")
 from unipath import Path
 import inflect
 
-ALL_WORDNET_WORDS = set()
-for synset in list(wn.all_synsets()):
-    for lemma in synset.lemmas():
-        ALL_WORDNET_WORDS.add(lemma.name())
+ALL_WORDNET_WORDS = set(words.words())
 
 verbs_fh =  open(Path(__file__).ancestor(1).child("en-verbs.txt"))
 lines = verbs_fh.readlines()
