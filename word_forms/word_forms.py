@@ -66,7 +66,7 @@ def singularize(noun):
     returns the word itself.
     """
     singular = inflect.engine().singular_noun(noun)
-    if singular in ALL_WORDNET_WORDS:
+    if singular and singular in ALL_WORDNET_WORDS:
         return singular
     return noun
 
