@@ -24,11 +24,10 @@ def belongs(lemma, lemma_list):
     unexpected results. This function implements the expected
     behavior for the statement "lemma in list_list".
     """
-    for element in lemma_list:
-        if (element.name() == lemma.name() and
-        element.synset() == lemma.synset()):
-            return True
-    return False
+    return any(
+        element.name() == lemma.name() and element.synset() == lemma.synset() 
+        for element in lemma_list
+    )
 
 def get_related_lemmas(word):
     """
