@@ -109,7 +109,11 @@ def get_word_forms(word):
         related_words_dict[pos].add(lemma.name().lower())
 
     for noun in related_words_dict["n"].copy():
-        related_words_dict["n"].add(inflect.engine().plural_noun(noun))
+        plural = inflect.engine().plural_noun(noun)
+        # inflect's pluralisation of nouns often fails by adding an additional "s" when pluralising 
+        # uninflectable nouns ending in -cs, such as "politics" or "genetics". We drop these cases.
+        if not plural.endswith("css"):
+            related_words_dict["n"].add(plural)
 
     for verb in related_words_dict["v"].copy():
         if verb in CONJUGATED_VERB_DICT:
