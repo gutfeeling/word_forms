@@ -424,4 +424,241 @@ test_values = [
         },
     ),
     ("revenue", {"n": {"revenue", "revenues"}, "a": set(), "v": set(), "r": set()}),
+    # Some Verbs
+    (
+        "cling",
+        {
+            "n": {"cling", "clings"},
+            "a": set(),
+            "v": {"clung", "cling", "clinging", "clings"},
+            "r": set(),
+        },
+    ),
+    (
+        "decrease",
+        {
+            "n": {"decrease", "decreases"},
+            "a": set(),
+            "v": {"decrease", "decreases", "decreased", "decreasing"},
+            "r": set(),
+        },
+    ),
+    (
+        "wonder",
+        {
+            "n": {
+                "wonder",
+                "wonderment",
+                "wonderments",
+                "wonders",
+                "wonderers",
+                "wonderer",
+            },
+            "a": {"wondrous"},
+            "v": {"wondering", "wonder", "wonders", "wondered"},
+            "r": {"wondrous", "wondrously"},
+        },
+    ),
+    (
+        "rest",
+        {
+            "n": {"rest", "rests", "resters", "rester"},
+            "a": set(),
+            "v": {"rest", "rests", "resting", "rested"},
+            "r": set(),
+        },
+    ),
+    (
+        "mutter",
+        {
+            "n": {
+                "mutterer",
+                "mutterers",
+                "muttering",
+                "mutter",
+                "mutterings",
+                "mutters",
+            },
+            "a": set(),
+            "v": {"muttering", "muttered", "mutters", "mutter"},
+            "r": set(),
+        },
+    ),
+    (
+        "implement",
+        {
+            "n": {"implementations", "implement", "implements", "implementation"},
+            "a": {"implemental"},
+            "v": {"implemented", "implement", "implements", "implementing"},
+            "r": set(),
+        },
+    ),
+    (
+        "evolve",
+        {
+            "n": {"evolution", "evolutions"},
+            "a": {"evolutionary"},
+            "v": {"evolved", "evolve", "evolves", "evolving"},
+            "r": {"evolutionarily"},
+        },
+    ),
+    (
+        "allocate",
+        {
+            "n": {"allocations", "allocators", "allocation", "allocator"},
+            "a": {"allocable", "allocatable"},
+            "v": {"allocating", "allocates", "allocated", "allocate"},
+            "r": set(),
+        },
+    ),
+    (
+        "flood",
+        {
+            "n": {"flood", "flooding", "floodings", "floods"},
+            "a": set(),
+            "v": {"flooding", "flooded", "flood", "floods"},
+            "r": set(),
+        },
+    ),  # Should there be `flooded` in 'a' here?
+    (
+        "bow",
+        {
+            "n": {"bows", "bow"},
+            "a": set(),
+            "v": {"bows", "bowing", "bowed", "bow"},
+            "r": set(),
+        },
+    ),
+    (
+        "advocate",
+        {
+            "n": {
+                "advocates",
+                "advocator",
+                "advocacy",
+                "advocacies",
+                "advocators",
+                "advocate",
+            },
+            "a": set(),
+            "v": {"advocates", "advocating", "advocated", "advocate"},
+            "r": set(),
+        },
+    ),
+    (
+        "divert",
+        {
+            "n": {"diversions", "diversionists", "diversionist", "diversion"},
+            "a": {"diversionary"},
+            "v": {"diverted", "diverts", "divert", "diverting"},
+            "r": set(),
+        },
+    ),
+    # Some adjectives
+    (
+        "sweet",
+        {
+            "n": {"sweetnesses", "sweets", "sweetness", "sweet"},
+            "a": {"sweet"},
+            "v": set(),
+            "r": {"sweet", "sweetly"},
+        },
+    ),
+    (
+        "glossy",
+        {
+            "n": {"glossiness", "glossy", "glossies", "glossinesses"},
+            "a": {"glossy"},
+            "v": set(),
+            "r": {"glossily"},
+        },
+    ),
+    (
+        "relevant",
+        {
+            "n": {"relevancies", "relevance", "relevancy", "relevances"},
+            "a": {"relevant"},
+            "v": set(),
+            "r": {"relevantly"},
+        },
+    ),
+    (
+        "aloof",
+        {"n": {"aloofnesses", "aloofness"}, "a": {"aloof"}, "v": set(), "r": {"aloof"}},
+    ),
+    (
+        "therapeutic",
+        {
+            "n": {
+                "therapists",
+                "therapies",
+                "therapy",
+                "therapist",
+                "therapeutic",
+                "therapeutics",
+            },
+            "a": {"therapeutical", "therapeutic"},
+            "v": set(),
+            "r": {"therapeutically"},
+        },
+    ),
+    (
+        "obviously",
+        {
+            "n": {"obviousnesses", "obviousness"},
+            "a": {"obvious"},
+            "v": set(),
+            "r": {"obviously"},
+        },
+    ),
+    (
+        "jumpy",
+        {
+            "n": {"jumpings", "jumpiness", "jumpinesses", "jump", "jumping", "jumps"},
+            "a": {"jumpy"},
+            "v": {"jump", "jumping", "jumped", "jumps"},
+            "r": set(),
+        },
+    ),
+    (
+        "venomous",
+        {"n": {"venom", "venoms"}, "a": {"venomous"}, "v": set(), "r": {"venomously"}},
+    ),
+    (
+        "laughable",
+        {
+            "n": {"laugher", "laughs", "laughers", "laugh"},
+            "a": {"laughable"},
+            "v": {"laughing", "laughs", "laughed", "laugh"},
+            "r": {"laughably"},
+        },
+    ),
+    (
+        "demonic",
+        {
+            "n": {"demons", "demon", "demonizations", "demonization"},
+            "a": {"demonic"},
+            "v": {"demonized", "demonizing", "demonizes", "demonize"},
+            "r": set(),
+        },
+    ),
+    (
+        "knotty",
+        {
+            "n": {"knot", "knottiness", "knots", "knottinesses"},
+            "a": {"knotty"},
+            "v": {"knotted", "knotting", "knots", "knot"},
+            "r": set(),
+        },
+    ),  # Is `knottinesses` a valid plural?
+    (
+        "little",
+        {
+            "n": {"little", "littlenesses", "littles", "littleness"},
+            "a": {"little"},
+            "v": set(),
+            "r": {"little"},
+        },
+    ),  # Is `littlenesses` a valid plural?
+    # "puzzling" and "overrated" should be checked
 ]
