@@ -36,8 +36,6 @@ if __name__ == "__main__":
             {
                 "n": {
                     "president",
-                    "Presidents",
-                    "President",
                     "presidentship",
                     "presidencies",
                     "presidency",
@@ -238,9 +236,6 @@ if __name__ == "__main__":
                 "r": {"verbally"},
             },
         ),
-    ]
-    # For the time being these test cases that fail are kept here
-    failed_test_values = [
         (
             "genetic",
             {
@@ -257,6 +252,116 @@ if __name__ == "__main__":
                 "a": {"political"},
                 "n": {"politician", "politicians", "politics"},
                 "v": set(),
+            },
+        ),
+        (
+            "death",
+            {
+                "n": {"death", "dying", "deaths", "die", "dyings", "dice"},
+                "a": {"dying", "deathly"},
+                "v": {"died", "die", "dying", "dies"},
+                "r": {"deathly"},
+            },
+        ),
+        (
+            "attitude",
+            {
+                "n": {"attitudes", "attitude"},
+                "a": set(),
+                "v": {
+                    "attitudinise",
+                    "attitudinized",
+                    "attitudinize",
+                    "attitudinizes",
+                    "attitudinizing",
+                },
+                "r": set(),
+            },
+        ),
+        (
+            "cheek",
+            {
+                "n": {"cheek", "cheekinesses", "cheeks", "cheekiness"},
+                "a": {"cheeky"},
+                "v": {"cheek", "cheeks", "cheeked", "cheeking"},
+                "r": {"cheekily"},
+            },
+        ),
+        (
+            "world",
+            {
+                "n": {"worldliness", "world", "worldlinesses", "worlds"},
+                "a": {"worldly", "world"},
+                "v": set(),
+                "r": set(),
+            },
+        ),
+        ("lake", {"n": {"lake", "lakes"}, "a": set(), "v": set(), "r": set()}),
+        (
+            "guitar",
+            {
+                "n": {"guitarist", "guitarists", "guitar", "guitars"},
+                "a": set(),
+                "v": set(),
+                "r": set(),
+            },
+        ),
+        (
+            "presence",
+            {
+                "n": {
+                    "presenter",
+                    "present",
+                    "presents",
+                    "presentness",
+                    "presenters",
+                    "presentnesses",
+                    "presentments",
+                    "presentations",
+                    "presences",
+                    "presence",
+                    "presentment",
+                    "presentation",
+                },
+                "a": {"present"},
+                "v": {"present", "presents", "presenting", "presented"},
+                "r": {"presently"},
+            },
+        ),
+        (
+            "enthusiasm",
+            {
+                "n": {"enthusiasm", "enthusiasms"},
+                "a": {"enthusiastic"},
+                "v": set(),
+                "r": {"enthusiastically"},
+            },
+        ),
+        (
+            "organization",
+            {
+                "n": {"organizers", "organization", "organizations", "organizer"},
+                "a": set(),
+                "v": {"organize", "organized", "organizing", "organizes"},
+                "r": set(),
+            },
+        ),
+        (
+            "player",
+            {
+                "n": {
+                    "plays",
+                    "playlet",
+                    "playings",
+                    "players",
+                    "playing",
+                    "playlets",
+                    "play",
+                    "player",
+                },
+                "a": set(),
+                "v": {"plays", "play", "playing", "played"},
+                "r": set(),
             },
         ),
     ]
