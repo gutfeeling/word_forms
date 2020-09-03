@@ -6,7 +6,7 @@ except LookupError:
     nltk.download("wordnet")
 import inflect
 
-from .constants import (ALL_WORDNET_WORDS, CONJUGATED_VERB_LIST,
+from .constants import (ALL_WORDNET_WORDS, CONJUGATED_VERB_DICT,
                         ADJECTIVE_TO_ADVERB)
 
 def belongs(lemma, lemma_list):
@@ -96,12 +96,10 @@ def get_word_forms(word):
     # TODO: This will add the plural of eg "politics", which according to inflect is "politicss"
     for noun in related_words_dict["n"].copy():
         related_words_dict["n"].add(inflect.engine().plural_noun(noun))
-    verb_set = [verb for verb in related_words_dict["v"]]
-    for verb in verb_set:
-        for conjugated_verbs in CONJUGATED_VERB_LIST:
-            if verb in conjugated_verbs:
-                for conjugated_verb in conjugated_verbs:
-                    related_words_dict["v"].add(conjugated_verb)
+    
+    for verb in related_words_dict["v"].copy():
+        if verb in CONJUGATED_VERB_DICT:
+            related_words_dict["v"] |= CONJUGATED_VERB_DICT[verb].verbs
     adjective_set = [adjective for adjective in related_words_dict["a"]]
     for adjective in adjective_set:
         try:

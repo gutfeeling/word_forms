@@ -15,14 +15,22 @@ import inflect
 
 ALL_WORDNET_WORDS = set(words.words())
 
+class Verb(object):
+    def __init__(self, verbs):
+        self.verbs = verbs
+
+    def __repr__(self):
+        return "Verbs" + str(self.verbs)
+
 verbs_fh =  open(Path(__file__).ancestor(1).child("en-verbs.txt"))
 lines = verbs_fh.readlines()
 verbs_fh.close()
-CONJUGATED_VERB_LIST = []
+CONJUGATED_VERB_DICT = {}
 for line in lines:
     if line[0] != ";":
-        CONJUGATED_VERB_LIST.append(
-            [string for string in line.strip().split(",") if string != ""])
+        verb_obj = Verb({string for string in line.strip().split(",") if string != ""})
+        for verb in verb_obj.verbs:
+            CONJUGATED_VERB_DICT[verb] = verb_obj
 
 ADJECTIVE_TO_ADVERB = {"good" : "well", "fast" : "fast", "hard" : "hard",
                        "late" : "late", "early" : "early", "daily" : "daily",
