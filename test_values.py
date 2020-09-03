@@ -749,4 +749,40 @@ test_values = [
             "r": set(),
         },
     ),
+    (
+        "run",
+        {
+            "n": {
+                "runnings",
+                "run",
+                "runninesses",
+                "runner",
+                "runniness",
+                "running",
+                "runs",
+                "runners",
+            },
+            "a": {"running", "runny"},
+            "v": {"running", "ran", "run", "runs"},
+            "r": set(),
+        },
+    ),
+    (
+        "ran",
+        {
+            "n": {
+                "runnings",
+                "run",
+                "runninesses",
+                "runner",
+                "runniness",
+                "running",
+                "runs",
+                "runners",
+            },
+            "a": {"running", "runny"},
+            "v": {"running", "ran", "run", "runs"},
+            "r": set(),
+        },
+    ),
 ]
