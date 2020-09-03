@@ -100,10 +100,9 @@ def get_word_forms(word):
     for verb in related_words_dict["v"].copy():
         if verb in CONJUGATED_VERB_DICT:
             related_words_dict["v"] |= CONJUGATED_VERB_DICT[verb].verbs
-    adjective_set = [adjective for adjective in related_words_dict["a"]]
-    for adjective in adjective_set:
-        try:
+    
+    for adjective in related_words_dict["a"].copy():
+        if adjective in ADJECTIVE_TO_ADVERB:
             related_words_dict["r"].add(ADJECTIVE_TO_ADVERB[adjective])
-        except KeyError:
-            pass
+
     return related_words_dict

@@ -32,16 +32,14 @@ for line in lines:
         for verb in verb_obj.verbs:
             CONJUGATED_VERB_DICT[verb] = verb_obj
 
-ADJECTIVE_TO_ADVERB = {"good" : "well", "fast" : "fast", "hard" : "hard",
-                       "late" : "late", "early" : "early", "daily" : "daily",
-                       "straight" : "straight"}
+ADJECTIVE_TO_ADVERB = {"good" : "well"}
 for ss in wn.all_synsets(pos = "r"):
     for lemma in ss.lemmas():
         word = lemma.name()
         this_word_lemmas = [lemma for ss in wn.synsets(word, pos = wn.ADV)
                             for lemma in ss.lemmas() if lemma.name() == word]
-        pertainyms = [pertainym.name() for this_word_lemma in this_word_lemmas
-                      for pertainym in this_word_lemma.pertainyms() ]
+        pertainyms = {pertainym.name() for this_word_lemma in this_word_lemmas
+                      for pertainym in this_word_lemma.pertainyms()}
         matches = get_close_matches(word, pertainyms)
-        if len(matches) > 0:
-            ADJECTIVE_TO_ADVERB[matches[0]] = word
+        for match in matches:
+            ADJECTIVE_TO_ADVERB[match] = word
