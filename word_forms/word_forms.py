@@ -6,8 +6,8 @@ except LookupError:
     import nltk
 
     nltk.download("wordnet")
-import inflect
 from nltk.stem import WordNetLemmatizer
+import inflect, re
 from difflib import SequenceMatcher
 
 from .constants import ALL_WORDNET_WORDS, CONJUGATED_VERB_DICT, ADJECTIVE_TO_ADVERB
@@ -106,9 +106,13 @@ def get_word_forms(word):
 
     for noun in related_words_dict["n"].copy():
         plural = inflect.engine().plural_noun(noun)
-        # inflect's pluralisation of nouns often fails by adding an additional "s" when pluralising 
+        # inflect's pluralisation of nouns often fails by adding an additional "s" when pluralising
         # uninflectable nouns ending in -cs, such as "politics" or "genetics". We drop these cases.
-        if not plural.endswith("css"):
+        # In particular, if the new plural ends with a consonant + ss, while the noun itself did not
+        # then we do *not* add the plural
+        if not re.search("[b-df-hj-np-tv-z]ss$", plural) or re.search(
+            "[b-df-hj-np-tv-z]ss$", noun
+        ):
             related_words_dict["n"].add(plural)
 
     for verb in related_words_dict["v"].copy():
