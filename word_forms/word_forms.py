@@ -5,6 +5,7 @@ except LookupError:
     import nltk
     nltk.download("wordnet")
 import inflect
+from difflib import SequenceMatcher
 
 from .constants import (ALL_WORDNET_WORDS, CONJUGATED_VERB_DICT,
                         ADJECTIVE_TO_ADVERB)
@@ -49,10 +50,10 @@ def get_related_lemmas_rec(word, known_lemmas):
     # Add new lemmas to known lemmas
     known_lemmas += [lemma for lemma in all_lemmas_for_this_word
                      if not belongs(lemma, known_lemmas)]
-    # Loop over new lemmas, and recurse using new related lemmas
+    # Loop over new lemmas, and recurse using new related lemmas, but only if the new related lemma is similar to the original one
     for lemma in all_lemmas_for_this_word:
         for new_lemma in (lemma.derivationally_related_forms() + lemma.pertainyms()):
-            if not belongs(new_lemma, known_lemmas):
+            if not belongs(new_lemma, known_lemmas) and SequenceMatcher(None, word, new_lemma.name()).ratio() > 0.4:
                 get_related_lemmas_rec(new_lemma.name(), known_lemmas)
     # Return the known lemmas
     return known_lemmas
