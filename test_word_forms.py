@@ -228,10 +228,7 @@ if __name__ == "__main__":
                 "v": {"words", "word", "worded", "wording"},
                 "r": set(),
             },
-        )
-    ]
-    # For the time being these test cases that fail are kept here
-    failed_test_values = [
+        ),
         (
             "verb",
             {
@@ -241,6 +238,9 @@ if __name__ == "__main__":
                 "r": {"verbally"},
             },
         ),
+    ]
+    # For the time being these test cases that fail are kept here
+    failed_test_values = [
         (
             "genetic",
             {
