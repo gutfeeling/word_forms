@@ -1,14 +1,16 @@
 try:
     from nltk.corpus import wordnet as wn
+
     raise_lookuperror_if_wordnet_data_absent = wn.synsets("python")
 except LookupError:
     import nltk
+
     nltk.download("wordnet")
 import inflect
 from difflib import SequenceMatcher
 
-from .constants import (ALL_WORDNET_WORDS, CONJUGATED_VERB_DICT,
-                        ADJECTIVE_TO_ADVERB)
+from .constants import ALL_WORDNET_WORDS, CONJUGATED_VERB_DICT, ADJECTIVE_TO_ADVERB
+
 
 def belongs(lemma, lemma_list):
     """
@@ -26,9 +28,10 @@ def belongs(lemma, lemma_list):
     behavior for the statement "lemma in list_list".
     """
     return any(
-        element.name() == lemma.name() and element.synset() == lemma.synset() 
+        element.name() == lemma.name() and element.synset() == lemma.synset()
         for element in lemma_list
     )
+
 
 def get_related_lemmas(word):
     """
@@ -42,21 +45,30 @@ def get_related_lemmas(word):
     """
     return get_related_lemmas_rec(word, [])
 
+
 def get_related_lemmas_rec(word, known_lemmas):
     # Turn string word into list of Lemma objects
-    all_lemmas_for_this_word = [lemma for ss in wn.synsets(word)
-                                for lemma in ss.lemmas()
-                                if lemma.name() == word]
+    all_lemmas_for_this_word = [
+        lemma
+        for ss in wn.synsets(word)
+        for lemma in ss.lemmas()
+        if lemma.name() == word
+    ]
     # Add new lemmas to known lemmas
-    known_lemmas += [lemma for lemma in all_lemmas_for_this_word
-                     if not belongs(lemma, known_lemmas)]
+    known_lemmas += [
+        lemma for lemma in all_lemmas_for_this_word if not belongs(lemma, known_lemmas)
+    ]
     # Loop over new lemmas, and recurse using new related lemmas, but only if the new related lemma is similar to the original one
     for lemma in all_lemmas_for_this_word:
-        for new_lemma in (lemma.derivationally_related_forms() + lemma.pertainyms()):
-            if not belongs(new_lemma, known_lemmas) and SequenceMatcher(None, word, new_lemma.name()).ratio() > 0.4:
+        for new_lemma in lemma.derivationally_related_forms() + lemma.pertainyms():
+            if (
+                not belongs(new_lemma, known_lemmas)
+                and SequenceMatcher(None, word, new_lemma.name()).ratio() > 0.4
+            ):
                 get_related_lemmas_rec(new_lemma.name(), known_lemmas)
     # Return the known lemmas
     return known_lemmas
+
 
 def singularize(noun):
     """
@@ -70,6 +82,7 @@ def singularize(noun):
     if singular and singular in ALL_WORDNET_WORDS:
         return singular
     return noun
+
 
 def get_word_forms(word):
     """
@@ -88,7 +101,7 @@ def get_word_forms(word):
     """
     word = singularize(word)
     related_lemmas = get_related_lemmas(word)
-    related_words_dict = {"n" : set(), "a" : set(), "v" : set(), "r" : set()}
+    related_words_dict = {"n": set(), "a": set(), "v": set(), "r": set()}
     for lemma in related_lemmas:
         pos = lemma.synset().pos()
         if pos == "s":
@@ -97,11 +110,11 @@ def get_word_forms(word):
     # TODO: This will add the plural of eg "politics", which according to inflect is "politicss"
     for noun in related_words_dict["n"].copy():
         related_words_dict["n"].add(inflect.engine().plural_noun(noun))
-    
+
     for verb in related_words_dict["v"].copy():
         if verb in CONJUGATED_VERB_DICT:
             related_words_dict["v"] |= CONJUGATED_VERB_DICT[verb].verbs
-    
+
     for adjective in related_words_dict["a"].copy():
         if adjective in ADJECTIVE_TO_ADVERB:
             related_words_dict["r"].add(ADJECTIVE_TO_ADVERB[adjective])
