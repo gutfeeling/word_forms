@@ -7,6 +7,7 @@ except LookupError:
 
     nltk.download("wordnet")
 import inflect
+from nltk.stem import WordNetLemmatizer
 from difflib import SequenceMatcher
 
 from .constants import ALL_WORDNET_WORDS, CONJUGATED_VERB_DICT, ADJECTIVE_TO_ADVERB
@@ -70,20 +71,6 @@ def get_related_lemmas_rec(word, known_lemmas):
     return known_lemmas
 
 
-def singularize(noun):
-    """
-    args
-        - noun : a noun e.g "man"
-
-    returns the singular form of the word if it finds one. Otherwise,
-    returns the word itself.
-    """
-    singular = inflect.engine().singular_noun(noun)
-    if singular and singular in ALL_WORDNET_WORDS:
-        return singular
-    return noun
-
-
 def get_word_forms(word):
     """
     args
@@ -99,8 +86,17 @@ def get_word_forms(word):
           'r': set(),
           'v': {'love', 'loved', 'loves', 'loving'}}
     """
-    word = singularize(word)
-    related_lemmas = get_related_lemmas(word)
+    words = {
+        WordNetLemmatizer().lemmatize(word, pos)
+        for pos in [wn.NOUN, wn.ADJ, wn.VERB, wn.ADV]
+    }
+    related_lemmas = []
+    for lemmatized_word in words:
+        related_lemmas += [
+            lemma
+            for lemma in get_related_lemmas(lemmatized_word)
+            if not belongs(lemma, related_lemmas)
+        ]
     related_words_dict = {"n": set(), "a": set(), "v": set(), "r": set()}
     for lemma in related_lemmas:
         pos = lemma.synset().pos()
