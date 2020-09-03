@@ -36,7 +36,9 @@ for line in lines:
         for verb in verb_obj.verbs:
             CONJUGATED_VERB_DICT[verb] = verb_obj
 
-ADJECTIVE_TO_ADVERB = {"good": "well"}
+ADJECTIVE_TO_ADVERB = {"good" : "well", "fast" : "fast", "hard" : "hard",
+                       "late" : "late", "early" : "early", "daily" : "daily",
+                       "straight" : "straight"}
 for ss in wn.all_synsets(pos="r"):
     for lemma in ss.lemmas():
         word = lemma.name()
