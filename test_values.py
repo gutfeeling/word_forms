@@ -785,4 +785,13 @@ test_values = [
             "r": set(),
         },
     ),
+    (
+        "blanket",
+        {
+            "n": {"blanket", "blankets"},
+            "a": {"blanket"},
+            "v": {"blankets", "blanketed", "blanketing", "blanket"},
+            "r": set(),
+        },
+    ),
 ]
