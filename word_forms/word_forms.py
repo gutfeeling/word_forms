@@ -106,8 +106,8 @@ def get_word_forms(word):
         pos = lemma.synset().pos()
         if pos == "s":
             pos = "a"
-        related_words_dict[pos].add(lemma.name())
-    # TODO: This will add the plural of eg "politics", which according to inflect is "politicss"
+        related_words_dict[pos].add(lemma.name().lower())
+
     for noun in related_words_dict["n"].copy():
         related_words_dict["n"].add(inflect.engine().plural_noun(noun))
 
