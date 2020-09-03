@@ -92,11 +92,7 @@ def get_word_forms(word):
     }
     related_lemmas = []
     for lemmatized_word in words:
-        related_lemmas += [
-            lemma
-            for lemma in get_related_lemmas(lemmatized_word)
-            if not belongs(lemma, related_lemmas)
-        ]
+        get_related_lemmas_rec(lemmatized_word, related_lemmas)
     related_words_dict = {"n": set(), "a": set(), "v": set(), "r": set()}
     for lemma in related_lemmas:
         pos = lemma.synset().pos()
