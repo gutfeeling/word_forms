@@ -660,5 +660,93 @@ test_values = [
             "r": {"little"},
         },
     ),  # Is `littlenesses` a valid plural?
-    # "puzzling" and "overrated" should be checked
+    (
+        "puzzling",
+        {
+            "n": {
+                "puzzle",
+                "puzzlers",
+                "puzzler",
+                "puzzlement",
+                "puzzlements",
+                "puzzles",
+            },
+            "a": {"puzzling"},
+            "v": {"puzzle", "puzzled", "puzzles", "puzzling"},
+            "r": set(),
+        },
+    ),
+    (
+        "overrated",
+        {
+            "n": {"overratings", "overrating"},
+            "a": set(),
+            "v": {"overrated", "overrating", "overrate", "overrates"},
+            "r": set(),
+        },
+    ),
+    (
+        "walk",
+        {
+            "n": {"walking", "walks", "walkings", "walker", "walk", "walkers"},
+            "a": {"walking"},
+            "v": {"walked", "walking", "walk", "walks"},
+            "r": set(),
+        },
+    ),
+    (
+        "walking",
+        {
+            "n": {"walking", "walks", "walkings", "walker", "walk", "walkers"},
+            "a": {"walking"},
+            "v": {"walked", "walking", "walk", "walks"},
+            "r": set(),
+        },
+    ),
+    (
+        "be",
+        {
+            "n": {"beings", "being"},
+            "a": set(),
+            "v": {
+                "wasn't",
+                "being",
+                "be",
+                "are",
+                "was",
+                "am",
+                "isn't",
+                "is",
+                "aren't",
+                "been",
+                "weren't",
+                "were",
+                "am not",
+            },
+            "r": set(),
+        },
+    ),
+    (
+        "am",
+        {
+            "n": {"beings", "being"},
+            "a": set(),
+            "v": {
+                "wasn't",
+                "being",
+                "be",
+                "are",
+                "was",
+                "am",
+                "isn't",
+                "is",
+                "aren't",
+                "been",
+                "weren't",
+                "were",
+                "am not",
+            },
+            "r": set(),
+        },
+    ),
 ]
