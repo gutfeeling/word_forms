@@ -64,7 +64,7 @@ Word Forms tries to solve this problem by finding all possible forms of a given 
 
 ## Compatibility
 
-Works on both Python 2 and Python 3
+Tested on Python 3.7.4
 
 ## Installation
 
@@ -96,6 +96,10 @@ git+git://github.com/gutfeeling/word_forms.git#egg=word_forms
 
 Hi, I am Dibya and I maintain this repository. I would love to hear from you. Feel free to get in touch with me 
 at dibyachakravorty@gmail.com.
+
+# Contributor
+
+Tom Aarsen @CubieDev is a major contributor and is singlehandedly responsible for v2.0.0. 
 
 ## Contributions
 
