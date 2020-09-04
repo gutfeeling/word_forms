@@ -12,25 +12,30 @@ Some very timely examples :-P
 ```python
 >>> from word_forms.word_forms import get_word_forms
 >>> get_word_forms("president")
->>> {'n': {'president', 'Presidents', 'President', 'presidentship', 'presidencies', 'presidency', 'presidentships', 'presidents'}, 
-     'r': {'presidentially'}, 
+>>> {'n': {'presidents', 'presidentships', 'presidencies', 'presidentship', 'president', 'presidency'}, 
      'a': {'presidential'}, 
-     'v': {'presiding', 'presides', 'preside', 'presided'}}
+     'v': {'preside', 'presided', 'presiding', 'presides'}, 
+     'r': {'presidentially'}}
 >>> get_word_forms("elect")
->>> {'n': {'elector', 'elects', 'electors', 'elective', 'electorates', 'elect', 'electives', 'elections', 'electorate', 'eligibility', 'election', 'eligibilities'}, 
-     'r': set(), 
-     'a': {'elect', 'electoral', 'elective', 'eligible'}, 
-     'v': {'elect', 'elects', 'electing', 'elected'}}
+>>> {'n': {'elects', 'electives', 'electors', 'elect', 'eligibilities', 'electorates', 'eligibility', 'elector', 'election', 'elections', 'electorate', 'elective'}, 
+     'a': {'eligible', 'electoral', 'elective', 'elect'}, 
+     'v': {'electing', 'elects', 'elected', 'elect'}, 
+     'r': set()}
 >>> get_word_forms("politician")
->>> {'r': {'politically'}, 
+>>> {'n': {'politician', 'politics', 'politicians'}, 
      'a': {'political'}, 
-     'n': {'politicss', 'politician', 'politicians', 'politics'}, 
-     'v': set()}
->>> get_word_forms("trump")
->>> {'n': {'trump', 'trumps', 'trumping', 'trumpings'}, 
-     'r': set(), 
+     'v': set(), 
+     'r': {'politically'}}
+>>> get_word_forms("am")
+>>> {'n': {'being', 'beings'}, 
      'a': set(), 
-     'v': {'trumped', 'trump', 'trumps', 'trumping'}}
+     'v': {'was', 'be', "weren't", 'am', "wasn't", "aren't", 'being', 'were', 'is', "isn't", 'been', 'are', 'am not'}, 
+     'r': set()}
+>>> get_word_forms("ran")
+>>> {'n': {'run', 'runniness', 'runner', 'runninesses', 'running', 'runners', 'runnings', 'runs'}, 
+     'a': {'running', 'runny'}, 
+     'v': {'running', 'run', 'ran', 'runs'}, 
+     'r': set()}
 ```
 As you can see, the output is a dictionary with four keys. "r" stands for adverb, "a" for adjective, "n" for noun
 and "v" for verb. Don't ask me why "r" stands for adverb. This is what WordNet uses, so this is why I use it too :-)
@@ -96,11 +101,7 @@ at dibyachakravorty@gmail.com.
 
 Word Forms is not perfect. In particular, a couple of aspects can be improved.
 
-1. It sometimes generates non dictionary words like "politicss" because the pluralization/singularization algorithm is
+1. It sometimes generates non dictionary words like "runninesses" because the pluralization/singularization algorithm is
 not perfect. At the moment, I am using [inflect](https://pypi.python.org/pypi/inflect) for it. 
-
-2. A function `has_same_base_form` for comparing two words can be added. At the moment, the information that "run" and 
-"ran" are connected can only be figured out by querying `get_word_forms("run")` and not `get_word_forms("ran")`. This 
-could be solved by creating a database of equivalence classes using this package (if word forms is an equivalence relation).
 
 If you like this package, feel free to contribute. Your pull requests are most welcome.

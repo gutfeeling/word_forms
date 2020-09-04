@@ -1,13 +1,17 @@
 try:
     from nltk.corpus import wordnet as wn
+
     raise_lookuperror_if_wordnet_data_absent = wn.synsets("python")
 except LookupError:
     import nltk
-    nltk.download("wordnet")
-import inflect
 
-from .constants import (ALL_WORDNET_WORDS, CONJUGATED_VERB_LIST,
-                        ADJECTIVE_TO_ADVERB)
+    nltk.download("wordnet")
+from nltk.stem import WordNetLemmatizer
+import inflect, re
+from difflib import SequenceMatcher
+
+from .constants import ALL_WORDNET_WORDS, CONJUGATED_VERB_DICT, ADJECTIVE_TO_ADVERB
+
 
 def belongs(lemma, lemma_list):
     """
@@ -24,11 +28,11 @@ def belongs(lemma, lemma_list):
     unexpected results. This function implements the expected
     behavior for the statement "lemma in list_list".
     """
-    for element in lemma_list:
-        if (element.name() == lemma.name() and
-        element.synset() == lemma.synset()):
-            return True
-    return False
+    return any(
+        element.name() == lemma.name() and element.synset() == lemma.synset()
+        for element in lemma_list
+    )
+
 
 def get_related_lemmas(word):
     """
@@ -40,50 +44,32 @@ def get_related_lemmas(word):
         Lemma('comeliness.n.01.loveliness')]
     returns [] if Wordnet doesn't recognize the word
     """
+    return get_related_lemmas_rec(word, [])
 
-    all_lemmas_for_this_word = [lemma for ss in wn.synsets(word)
-                                for lemma in ss.lemmas()
-                                if lemma.name() == word]
-    all_related_lemmas = [lemma for lemma in all_lemmas_for_this_word]
-    new_lemmas = []
+
+def get_related_lemmas_rec(word, known_lemmas):
+    # Turn string word into list of Lemma objects
+    all_lemmas_for_this_word = [
+        lemma
+        for ss in wn.synsets(word)
+        for lemma in ss.lemmas()
+        if lemma.name() == word
+    ]
+    # Add new lemmas to known lemmas
+    known_lemmas += [
+        lemma for lemma in all_lemmas_for_this_word if not belongs(lemma, known_lemmas)
+    ]
+    # Loop over new lemmas, and recurse using new related lemmas, but only if the new related lemma is similar to the original one
     for lemma in all_lemmas_for_this_word:
-        for new_lemma in (lemma.derivationally_related_forms() +
-                          lemma.pertainyms()):
-            if (not belongs(new_lemma, all_related_lemmas) and
-            not belongs(new_lemma, new_lemmas)):
-                new_lemmas.append(new_lemma)
-    while len(new_lemmas) > 0:
-        all_lemmas_for_new_words = []
-        for new_lemma in new_lemmas:
-            word = new_lemma.name()
-            all_lemmas_for_this_word = [lemma for ss in wn.synsets(word)
-                                        for lemma in ss.lemmas()
-                                        if lemma.name() == word]
-            for lemma in all_lemmas_for_this_word:
-                if not belongs(lemma, all_lemmas_for_new_words):
-                    all_lemmas_for_new_words.append(lemma)
-        all_related_lemmas += all_lemmas_for_new_words
-        new_lemmas = []
-        for lemma in all_lemmas_for_new_words:
-            for new_lemma in (lemma.derivationally_related_forms() +
-                              lemma.pertainyms()):
-                if (not belongs(new_lemma, all_related_lemmas) and
-                not belongs(new_lemma, new_lemmas)):
-                    new_lemmas.append(new_lemma)
-    return all_related_lemmas
+        for new_lemma in lemma.derivationally_related_forms() + lemma.pertainyms():
+            if (
+                not belongs(new_lemma, known_lemmas)
+                and SequenceMatcher(None, word, new_lemma.name()).ratio() > 0.4
+            ):
+                get_related_lemmas_rec(new_lemma.name(), known_lemmas)
+    # Return the known lemmas
+    return known_lemmas
 
-def singularize(noun):
-    """
-    args
-        - noun : a noun e.g "man"
-
-    returns the singular form of the word if it finds one. Otherwise,
-    returns the word itself.
-    """
-    singular = inflect.engine().singular_noun(noun)
-    if singular in ALL_WORDNET_WORDS:
-        return singular
-    return noun
 
 def get_word_forms(word):
     """
@@ -100,27 +86,37 @@ def get_word_forms(word):
           'r': set(),
           'v': {'love', 'loved', 'loves', 'loving'}}
     """
-    word = singularize(word)
-    related_lemmas = get_related_lemmas(word)
-    related_words_dict = {"n" : set(), "a" : set(), "v" : set(), "r" : set()}
+    words = {
+        WordNetLemmatizer().lemmatize(word, pos)
+        for pos in [wn.NOUN, wn.ADJ, wn.VERB, wn.ADV]
+    }
+    related_lemmas = []
+    for lemmatized_word in words:
+        get_related_lemmas_rec(lemmatized_word, related_lemmas)
+    related_words_dict = {"n": set(), "a": set(), "v": set(), "r": set()}
     for lemma in related_lemmas:
         pos = lemma.synset().pos()
         if pos == "s":
             pos = "a"
-        related_words_dict[pos].add(lemma.name())
-    noun_set = [noun for noun in related_words_dict["n"]]
-    for noun in noun_set:
-        related_words_dict["n"].add(inflect.engine().plural_noun(noun))
-    verb_set = [verb for verb in related_words_dict["v"]]
-    for verb in verb_set:
-        for conjugated_verbs in CONJUGATED_VERB_LIST:
-            if verb in conjugated_verbs:
-                for conjugated_verb in conjugated_verbs:
-                    related_words_dict["v"].add(conjugated_verb)
-    adjective_set = [adjective for adjective in related_words_dict["a"]]
-    for adjective in adjective_set:
-        try:
+        related_words_dict[pos].add(lemma.name().lower())
+
+    for noun in related_words_dict["n"].copy():
+        plural = inflect.engine().plural_noun(noun)
+        # inflect's pluralisation of nouns often fails by adding an additional "s" when pluralising
+        # uninflectable nouns ending in -cs, such as "politics" or "genetics". We drop these cases.
+        # In particular, if the new plural ends with a consonant + ss, while the noun itself did not
+        # then we do *not* add the plural
+        if not re.search("[b-df-hj-np-tv-z]ss$", plural) or re.search(
+            "[b-df-hj-np-tv-z]ss$", noun
+        ):
+            related_words_dict["n"].add(plural)
+
+    for verb in related_words_dict["v"].copy():
+        if verb in CONJUGATED_VERB_DICT:
+            related_words_dict["v"] |= CONJUGATED_VERB_DICT[verb].verbs
+
+    for adjective in related_words_dict["a"].copy():
+        if adjective in ADJECTIVE_TO_ADVERB:
             related_words_dict["r"].add(ADJECTIVE_TO_ADVERB[adjective])
-        except KeyError:
-            pass
+
     return related_words_dict
