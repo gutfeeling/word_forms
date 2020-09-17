@@ -8,5 +8,5 @@ setup(name="word_forms",
       packages=["word_forms"],
       package_data={"word_forms" : ["en-verbs.txt"]},
       include_package_data=True,
-      install_requires = ["Unipath==1.1", "inflect==0.2.5", "nltk==3.2.1", "python-Levenshtein==0.12.0"]
+      install_requires = ["Unipath==1.1", "inflect==0.2.5", "nltk==3.4.5", "python-Levenshtein==0.12.0"]
       )
