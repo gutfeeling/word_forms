@@ -8,8 +8,7 @@ except LookupError:
     nltk.download("wordnet")
 from nltk.stem import WordNetLemmatizer
 import inflect, re
-from difflib import SequenceMatcher
-
+from Levenshtein import ratio
 from .constants import ALL_WORDNET_WORDS, CONJUGATED_VERB_DICT, ADJECTIVE_TO_ADVERB
 
 
@@ -64,7 +63,7 @@ def get_related_lemmas_rec(word, known_lemmas):
         for new_lemma in lemma.derivationally_related_forms() + lemma.pertainyms():
             if (
                 not belongs(new_lemma, known_lemmas)
-                and SequenceMatcher(None, word, new_lemma.name()).ratio() > 0.4
+                and ratio(word, new_lemma.name()) > 0.4
             ):
                 get_related_lemmas_rec(new_lemma.name(), known_lemmas)
     # Return the known lemmas
