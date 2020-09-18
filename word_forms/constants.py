@@ -1,19 +1,16 @@
 from difflib import get_close_matches
+from pathlib import Path
 
 try:
     from nltk.corpus import wordnet as wn
-
     raise_lookuperror_if_wordnet_data_absent = wn.synsets("python")
 except LookupError:
     import nltk
-
     nltk.download("wordnet")
 try:
     from nltk.corpus import words
 except LookupError:
     nltk.download("words")
-from unipath import Path
-import inflect
 
 ALL_WORDNET_WORDS = set(words.words())
 
@@ -26,7 +23,7 @@ class Verb(object):
         return "Verbs" + str(self.verbs)
 
 
-verbs_fh = open(Path(__file__).ancestor(1).child("en-verbs.txt"))
+verbs_fh = open(str(Path(__file__).parent.absolute() / "en-verbs.txt"))
 lines = verbs_fh.readlines()
 verbs_fh.close()
 CONJUGATED_VERB_DICT = {}
