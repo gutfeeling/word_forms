@@ -78,7 +78,7 @@ Enjoy!
 
 ## Compatibility
 
-Tested on Python 3.7.4
+Tested on Python 3
 
 ## Installation
 
