@@ -62,6 +62,20 @@ Lemmatizers are more accurate than Stemmers because they produce a base form tha
 
 Word Forms tries to solve this problem by finding all possible forms of a given English word. It can perform verb conjugations, connect noun forms to verb forms, adjective forms, adverb forms, plularize singular forms etc. 
 
+## Bonus: A simple lemmatizer
+
+We also offer a very simple lemmatizer based on ``word_forms``. Here is how to use it.
+
+```python
+>>> from word_forms.lemmatizer import lemmatize
+>>> lemmatize("operations")
+'operant'
+>>> lemmatize("operate")
+'operant'
+```
+
+Enjoy!
+
 ## Compatibility
 
 Tested on Python 3.7.4
