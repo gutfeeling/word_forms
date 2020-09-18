@@ -1,15 +1,16 @@
+import re
+
 try:
     from nltk.corpus import wordnet as wn
-
     raise_lookuperror_if_wordnet_data_absent = wn.synsets("python")
 except LookupError:
     import nltk
-
     nltk.download("wordnet")
 from nltk.stem import WordNetLemmatizer
-import inflect, re
+import inflect
 from Levenshtein import ratio
-from .constants import ALL_WORDNET_WORDS, CONJUGATED_VERB_DICT, ADJECTIVE_TO_ADVERB
+
+from .constants import CONJUGATED_VERB_DICT, ADJECTIVE_TO_ADVERB
 
 
 def belongs(lemma, lemma_list):
