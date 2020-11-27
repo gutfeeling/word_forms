@@ -47,7 +47,7 @@ def get_related_lemmas(word):
     return get_related_lemmas_rec(word, [])
 
 
-def get_related_lemmas_rec(word, known_lemmas):
+def get_related_lemmas_rec(word, known_lemmas, similarity_threshold):
     # Turn string word into list of Lemma objects
     all_lemmas_for_this_word = [
         lemma
@@ -64,17 +64,18 @@ def get_related_lemmas_rec(word, known_lemmas):
         for new_lemma in lemma.derivationally_related_forms() + lemma.pertainyms():
             if (
                 not belongs(new_lemma, known_lemmas)
-                and ratio(word, new_lemma.name()) > 0.4
+                and ratio(word, new_lemma.name()) > similarity_threshold
             ):
-                get_related_lemmas_rec(new_lemma.name(), known_lemmas)
+                get_related_lemmas_rec(new_lemma.name(), known_lemmas, similarity_threshold)
     # Return the known lemmas
     return known_lemmas
 
 
-def get_word_forms(word):
+def get_word_forms(word, similarity_threshold=0.4):
     """
     args
         word : a word e.g "love"
+        similarity_threshold: minimum levenshtein ratio e.g 0.5 (default: 0.4)
 
     returns the related word forms corresponding to the input word. the output
     is a dictionary with four keys "n" (noun), "a" (adjective), "v" (verb)
@@ -92,7 +93,7 @@ def get_word_forms(word):
     }
     related_lemmas = []
     for lemmatized_word in words:
-        get_related_lemmas_rec(lemmatized_word, related_lemmas)
+        get_related_lemmas_rec(lemmatized_word, related_lemmas, similarity_threshold)
     related_words_dict = {"n": set(), "a": set(), "v": set(), "r": set()}
     for lemma in related_lemmas:
         pos = lemma.synset().pos()
