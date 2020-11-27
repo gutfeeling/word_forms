@@ -1,4 +1,5 @@
 from difflib import get_close_matches
+from collections import defaultdict
 from pathlib import Path
 
 try:
@@ -16,22 +17,26 @@ ALL_WORDNET_WORDS = set(words.words())
 
 
 class Verb(object):
-    def __init__(self, verbs):
-        self.verbs = verbs
+    def __init__(self, verbs=None):
+        self.verbs = verbs if verbs else set()
 
     def __repr__(self):
         return "Verbs" + str(self.verbs)
+
+    def update(self, verbs):
+        self.verbs.update(verbs)
 
 
 verbs_fh = open(str(Path(__file__).parent.absolute() / "en-verbs.txt"))
 lines = verbs_fh.readlines()
 verbs_fh.close()
-CONJUGATED_VERB_DICT = {}
+
+CONJUGATED_VERB_DICT = defaultdict(Verb)
 for line in lines:
     if line[0] != ";":
-        verb_obj = Verb({string for string in line.strip().split(",") if string != ""})
-        for verb in verb_obj.verbs:
-            CONJUGATED_VERB_DICT[verb] = verb_obj
+        verbs = {string for string in line.strip().split(",") if string != ""}
+        for verb in verbs:
+            CONJUGATED_VERB_DICT[verb].update(verbs)
 
 ADJECTIVE_TO_ADVERB = {"good" : "well", "fast" : "fast", "hard" : "hard",
                        "late" : "late", "early" : "early", "daily" : "daily",
