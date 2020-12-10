@@ -1,11 +1,12 @@
 import re
 
 try:
-    from nltk.corpus import wordnet as wn
-    raise_lookuperror_if_wordnet_data_absent = wn.synsets("python")
+    from nltk.data import find
+    find("corpora/wordnet.zip")
 except LookupError:
-    import nltk
-    nltk.download("wordnet")
+    from nltk import download
+    download("wordnet", quiet=True)
+from nltk.corpus import wordnet as wn
 from nltk.stem import WordNetLemmatizer
 import inflect
 from Levenshtein import ratio
