@@ -116,9 +116,10 @@ git+git://github.com/gutfeeling/word_forms.git#egg=word_forms
 Hi, I am Dibya and I maintain this repository. I would love to hear from you. Feel free to get in touch with me
 at dibyachakravorty@gmail.com.
 
-## Contributor
+## Contributors
 
-Tom Aarsen @CubieDev is a major contributor and is singlehandedly responsible for v2.0.0.
+- Tom Aarsen @CubieDev is a major contributor and is singlehandedly responsible for v2.0.0.
+- Sajal Sharma @sajal2692 ia a major contributor.
 
 ## Contributions
 
