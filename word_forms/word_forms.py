@@ -2,7 +2,7 @@ import re
 
 try:
     from nltk.corpus import wordnet as wn
-    raise_lookuperror_if_wordnet_data_absent = wn.synsets("python")
+    raise_lookuperror_if_wordnet_data_absent = wn.synset("python.n.01")
 except LookupError:
     import nltk
     nltk.download("wordnet")
