@@ -6,7 +6,7 @@ setup(name="word_forms",
       author="Dibya Chakravorty",
       author_email="dibyachakravorty@gmail.com",
       packages=["word_forms"],
-      package_data={"word_forms" : ["en-verbs.txt"]},
+      package_data={"word_forms" : ["en-verbs.txt", "adj_to_adv.txt"]},
       include_package_data=True,
       install_requires=["inflect==4.1.0", "nltk>=3.3"]
       )
