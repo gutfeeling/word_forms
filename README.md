@@ -1,4 +1,4 @@
-<img src="https://github.com/gutfeeling/word_forms/blob/master/logo.png" alt="word forms logo" width="500">
+<img src="https://github.com/gutfeeling/word_forms/raw/master/logo.png" alt="word forms logo" width="500">
 
 ## Accurately generate all possible forms of an English word
 
@@ -87,23 +87,28 @@ Tested on Python 3
 
 ## Installation
 
-### 1. Clone the repository.
+Using `pip`:
+
+```
+pip install -U word_forms
+```
+
+### From source
+Or you can install it from source:
+
+1. Clone the repository:
+
 ```
 git clone https://github.com/gutfeeling/word_forms.git
 ```
-### 2. Install it using pip or setup.py install
+
+2. Install it using `pip` or `setup.py`
+
 ```
 pip install -e word_forms
-```
-OR
-```
+% or
 cd word_forms
 python setup.py install
-```
-
-### Alternatively, add this to your pip requirements file:
-```
-git+git://github.com/gutfeeling/word_forms.git#egg=word_forms
 ```
 
 ## Acknowledgement
