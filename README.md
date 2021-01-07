@@ -125,7 +125,7 @@ at dibyachakravorty@gmail.com.
 
 - Tom Aarsen @CubieDev is a major contributor and is singlehandedly responsible for v2.0.0.
 - Sajal Sharma @sajal2692 ia a major contributor.
-- Pamphile Rpy @tupui is responsible for the PyPI package.
+- Pamphile Roy @tupui is responsible for the PyPI package.
 
 ## Contributions
 
